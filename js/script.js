@@ -1,4 +1,4 @@
-// click , addEventListener, fecth API
+// click , addEventListener, fetch API
 //LocalStorage con los chistes traídos con fetch
 // Renderizar los chistes en el DOM
 //Manejador de click en el botón "Obtener Chiste"
@@ -13,14 +13,8 @@
 const btnObtenerChiste = document.getElementById('fetchJoke')
 const listaChistes = document.getElementById('jokeList')
 
-let chistes = []
-chistes = obtenerLocalStorage()
-console.log('Chistes cargados desde el local storage', chistes)
-
-renderizarLista()
 
 btnObtenerChiste.addEventListener('click', () => {
-  console.log(chistes)
   fetch('https://api.chucknorris.io/jokes/random')
   .then(response => {
     if(!response.ok) {
@@ -31,36 +25,50 @@ btnObtenerChiste.addEventListener('click', () => {
   })
   .then (data => {
     chistes.push(data.value)
-    guardarLocalStorage(chistes)
+    setJokes(chistes)
     console.log('guardado')
     renderizarLista()
   })
   .catch (error => {
-    console.error('Habido un problema: ', error)
+    console.error('Ha habido un problema: ', error)
   })
 })
 
-const obtenerLocalStorage = () => {
-  const chistesGuardados = localStorage.getItem('chuckNorrisJokes')
+
+const getJokes = () => {
+  let chistesGuardados = localStorage.getItem('chuckNorrisJokes')
   return chistesGuardados ? JSON.parse(chistesGuardados) : []
 }
 
-const guardarLocalStorage = (chistes) => {
+let chistes = getJokes()
+
+const setJokes = (chistes) => {
   localStorage.setItem('chuckNorrisJokes', JSON.stringify(chistes))
 }
 
+
 function renderizarLista() {
   listaChistes.innerHTML = ''
-  chistes.forEach(textoChiste => {
+  
+  chistes.forEach((textoChiste, index) => {
     
     const li = document.createElement('li')
+    li.classList.add('listado')
     li.textContent = textoChiste;
-
+    
     const btnBorrar = document.createElement('button')
+    btnBorrar.classList.add('btn-borrar')
     btnBorrar.textContent = 'Eliminar chiste'
+    
+    btnBorrar.addEventListener('click', () => {
+      chistes.splice(index, 1)
+      setJokes(chistes)
+      renderizarLista()
+    })
     
     li.appendChild(btnBorrar)
     
     listaChistes.appendChild(li)
   });
 };
+renderizarLista()

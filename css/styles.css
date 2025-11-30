@@ -17,14 +17,36 @@ button {
   margin-top: 10px;
   padding: 8px 16px;
   font-size: 16px;
-  background-color: #007bff;
+  background-color: #103357;
+  border-radius: 8px;
   color: #fff;
   border: none;
   cursor: pointer;
 }
 
 button:hover {
-  background-color: #0056b3;
+  background-color: #111a24;
+}
+
+.listado {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  border: #111a24 solid 0.5px;
+  border-radius: 16px;
+  padding: 24px;
+  margin: 24px;
+  gap: 24px;
+  background-color: rgb(238, 232, 232);
+  
+}
+.btn-borrar {
+  background-color: rgb(132, 51, 11);
+}
+
+.btn-borrar:hover {
+  background-color: rgb(61, 24, 6);
 }
 
 
