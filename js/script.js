@@ -15,7 +15,7 @@ const getJokes = () => {
 let chistes = getJokes()                //declaramos esto y no un array vacío porque aquí queremos guardar los datos que están en el localStorage y hemos recuperado con la función getJokes
 
 const setJokes = (chistes) => {        //guardamos los chistes en el localStorage
-  localStorage.setItem('chuckNorrisJokes', JSON.stringify(chistes))
+  localStorage.setItem('chuckNorrisJokes', JSON.stringify(chistes))   //lo envía como una base de datos para poder enviarlo/guardarlo en el localStorage
 }
 
 
